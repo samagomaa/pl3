@@ -1,0 +1,4 @@
+D:\PL3_proj\FSharpWinFormsApp\FSharpWinFormsApp\obj\Debug\net8.0\FSharpWinFormsApp.fsproj.AssemblyReference.cache
+D:\PL3_proj\FSharpWinFormsApp\FSharpWinFormsApp\obj\Debug\net8.0\FSharpWinFormsApp.AssemblyInfoInputs.cache
+D:\PL3_proj\FSharpWinFormsApp\FSharpWinFormsApp\obj\Debug\net8.0\FSharpWinFormsApp.AssemblyInfo.fs
+D:\PL3_proj\FSharpWinFormsApp\FSharpWinFormsApp\obj\Debug\net8.0\FSharpWinFormsApp.fsproj.CoreCompileInputs.cache
