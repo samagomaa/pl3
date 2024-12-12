@@ -10,7 +10,7 @@ open System.Reflection
 [<assembly: System.Reflection.AssemblyCompanyAttribute("FSharpWinFormsApp")>]
 [<assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")>]
 [<assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")>]
-[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5e2a85d801364de2fcbe0b4c1e200116cfd0310")>]
+[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13dd7bca4cc37dbedee1ae8eb110103d9720eb7b")>]
 [<assembly: System.Reflection.AssemblyProductAttribute("FSharpWinFormsApp")>]
 [<assembly: System.Reflection.AssemblyTitleAttribute("FSharpWinFormsApp")>]
 [<assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")>]

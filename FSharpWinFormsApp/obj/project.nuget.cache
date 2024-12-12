@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RNVYDpvsVEI=",
+  "dgSpecHash": "XsSQdXDVKiY=",
   "success": true,
-  "projectFilePath": "D:\\PL3\\Cinema_Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
+  "projectFilePath": "D:\\PL3Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
   "expectedPackageFiles": [
     "C:\\Users\\sara mahmoud\\.nuget\\packages\\fsharp.core\\8.0.403\\fsharp.core.8.0.403.nupkg.sha512"
   ],

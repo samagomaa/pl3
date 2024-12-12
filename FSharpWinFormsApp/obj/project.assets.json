@@ -113,11 +113,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\PL3\\Cinema_Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
+      "projectUniqueName": "D:\\PL3Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
       "projectName": "FSharpWinFormsApp",
-      "projectPath": "D:\\PL3\\Cinema_Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
+      "projectPath": "D:\\PL3Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
       "packagesPath": "C:\\Users\\sara mahmoud\\.nuget\\packages\\",
-      "outputPath": "D:\\PL3\\Cinema_Project\\FSharpWinFormsApp\\obj\\",
+      "outputPath": "D:\\PL3Project\\FSharpWinFormsApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\sara mahmoud\\AppData\\Roaming\\NuGet\\NuGet.Config",
