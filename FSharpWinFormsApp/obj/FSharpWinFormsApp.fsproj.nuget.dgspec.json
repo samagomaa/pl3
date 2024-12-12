@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PL3_proj\\FSharpWinFormsApp\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj": {}
+    "D:\\PL3\\Cinema_Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj": {}
   },
   "projects": {
-    "D:\\PL3_proj\\FSharpWinFormsApp\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj": {
+    "D:\\PL3\\Cinema_Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PL3_proj\\FSharpWinFormsApp\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
+        "projectUniqueName": "D:\\PL3\\Cinema_Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
         "projectName": "FSharpWinFormsApp",
-        "projectPath": "D:\\PL3_proj\\FSharpWinFormsApp\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
-        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\PL3_proj\\FSharpWinFormsApp\\FSharpWinFormsApp\\obj\\",
+        "projectPath": "D:\\PL3\\Cinema_Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
+        "packagesPath": "C:\\Users\\sara mahmoud\\.nuget\\packages\\",
+        "outputPath": "D:\\PL3\\Cinema_Project\\FSharpWinFormsApp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\sara mahmoud\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\9.0.101\\FSharp\\library-packs": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Program Files\\dotnet\\sdk\\8.0.404\\FSharp\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,8 +36,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0-windows7.0": {
@@ -49,7 +45,7 @@
             "FSharp.Core": {
               "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
               "target": "Package",
-              "version": "[9.0.100, )",
+              "version": "[8.0.403, )",
               "generatePathProperty": true
             }
           },
@@ -72,7 +68,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

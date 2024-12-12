@@ -1,7 +1,7 @@
 ﻿open System
 open System.Drawing
 open System.Windows.Forms
-
+open Model
 // Create the main form
 let mainForm = new Form(Text = "Cinema Reservation Seat", Width = 900, Height = 600)
 mainForm.BackColor <- Color.FromArgb(255, 255, 225)
@@ -58,10 +58,14 @@ mainForm.Controls.Add(userNameInput)
 // Create a ComboBox for Show Time
 let showTimeLabel = new Label(Text = "Select Show Time", Location = new Point(50, 470))
 let showTimeComboBox = new ComboBox(Location = new Point(150, 470), Width = 200)
-showTimeComboBox.Items.Add("10:00 AM")
-showTimeComboBox.Items.Add("2:00 PM")
-showTimeComboBox.Items.Add("6:00 PM")
-showTimeComboBox.SelectedIndex <- 0
+//showTimeComboBox.Items.Add("10:00 AM")
+//showTimeComboBox.Items.Add("2:00 PM")
+//showTimeComboBox.Items.Add("6:00 PM")
+let showtimes=displayShowtimes()
+// Populate ComboBox with showtimes from Model
+showtimes |> List.iter (fun time -> showTimeComboBox.Items.Add(time) |> ignore)
+if showTimeComboBox.Items.Count > 0 then
+    showTimeComboBox.SelectedIndex <- 0
 mainForm.Controls.Add(showTimeLabel)
 mainForm.Controls.Add(showTimeComboBox)
 
