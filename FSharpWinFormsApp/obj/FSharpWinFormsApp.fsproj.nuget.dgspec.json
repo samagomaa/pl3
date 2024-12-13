@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PL3Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj": {}
+    "D:\\pl3ProjectDB\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj": {}
   },
   "projects": {
-    "D:\\PL3Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj": {
+    "D:\\pl3ProjectDB\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PL3Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
+        "projectUniqueName": "D:\\pl3ProjectDB\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
         "projectName": "FSharpWinFormsApp",
-        "projectPath": "D:\\PL3Project\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
+        "projectPath": "D:\\pl3ProjectDB\\FSharpWinFormsApp\\FSharpWinFormsApp.fsproj",
         "packagesPath": "C:\\Users\\sara mahmoud\\.nuget\\packages\\",
-        "outputPath": "D:\\PL3Project\\FSharpWinFormsApp\\obj\\",
+        "outputPath": "D:\\pl3ProjectDB\\FSharpWinFormsApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\sara mahmoud\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -46,6 +46,16 @@
               "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
               "target": "Package",
               "version": "[8.0.403, )",
+              "generatePathProperty": true
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[9.1.0, )",
+              "generatePathProperty": true
+            },
+            "System.Data.SQLite": {
+              "target": "Package",
+              "version": "[1.0.119, )",
               "generatePathProperty": true
             }
           },

@@ -138,10 +138,10 @@ cancelButton.Click.Add(fun _ ->
     // Prompt for row and column
     let row = int (rowInput.Text)
     let column = int (columnInput.Text) 
-    
+    let username=string(userNameInput.Text)
     // Update layout and ticket records
-    seatLayout <- cancelReservation row column seatLayout 
-    saveLayoutToFile seatLayout layoutFilePath
+    CancelReservationAndDeleteCustomer row column username seatLayout layoutFilePath
+    
     // Notify user
     MessageBox.Show(sprintf "Reservation for seat (%d, %d) has been canceled." row column, "Reservation Canceled", MessageBoxButtons.OK) |> ignore
 )
