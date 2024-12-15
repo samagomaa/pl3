@@ -1,6 +1,8 @@
 ﻿module Model
 open System
 open System.IO
+open Data
+open MySql.Data.MySqlClient
 // Customer
 type Customer = {
    Id: int
@@ -26,12 +28,6 @@ type Ticket = {
     CustomerDetails: Customer
     Showtime: DateTime
 }
-
-// Generate unique Customer ID
-let mutable customerIdCounter = 0
-let GenerateUniqueCustomerID() =
-    customerIdCounter <- customerIdCounter + 1
-    customerIdCounter
 
 // Generate unique Ticket ID
 let GenerateUniqueTicket() =
@@ -94,8 +90,69 @@ let loadLayoutFromFile filePath =
                 failwithf "Malformed line in file: %s" line)
     else
         []
- 
+//save customer in database
+let GetOrCreateCustomerId (customerName: string) =
+    use conn = new MySqlConnection(connectionString)
+    conn.Open()
+    use transaction = conn.BeginTransaction()
 
+    try
+        // Check if the customer already exists
+        let selectQuery = "SELECT Id FROM Customer WHERE Name = @Name FOR UPDATE"
+        use selectCmd = new MySqlCommand(selectQuery, conn, transaction)
+        selectCmd.Parameters.AddWithValue("@Name", customerName) |> ignore
+        
+        use reader = selectCmd.ExecuteReader()
+        if reader.Read() then
+            let existingId = reader.GetInt32(0)
+            reader.Close()
+            transaction.Commit()
+            existingId // Return the existing customer's ID
+        else
+            reader.Close() // Close the reader before executing the next query
+            
+            // Insert a new customer and get the auto-incremented ID
+            let insertQuery = "INSERT INTO Customer (Name) VALUES (@Name); SELECT LAST_INSERT_ID();"
+            use insertCmd = new MySqlCommand(insertQuery, conn, transaction)
+            insertCmd.Parameters.AddWithValue("@Name", customerName) |> ignore
+            let newId = Convert.ToInt32(insertCmd.ExecuteScalar()) // Convert UInt64 to Int32
+            transaction.Commit()
+            newId // Return the newly created customer's ID
+    with
+    | ex ->
+        transaction.Rollback()
+        raise ex // Re-throw the exception for handling
+
+
+
+//sve ticket in database
+let SaveTicket (ticket: Ticket) =
+    use conn = new MySql.Data.MySqlClient.MySqlConnection(connectionString)
+    conn.Open()
+    let query = """
+        INSERT INTO Ticket (TicketID, CustomerId, SeatRow, SeatColumn, Showtime)
+        VALUES (@TicketID, @CustomerId, @SeatRow, @SeatColumn, @Showtime)
+    """
+    use cmd = new MySql.Data.MySqlClient.MySqlCommand(query, conn)
+    cmd.Parameters.AddWithValue("@TicketID", ticket.TicketID.ToString()) |> ignore
+    cmd.Parameters.AddWithValue("@CustomerId", ticket.CustomerDetails.Id) |> ignore
+    cmd.Parameters.AddWithValue("@SeatRow", ticket.SeatDetails.Row) |> ignore
+    cmd.Parameters.AddWithValue("@SeatColumn", ticket.SeatDetails.Column) |> ignore
+    cmd.Parameters.AddWithValue("@Showtime", ticket.Showtime) |> ignore
+    cmd.ExecuteNonQuery()
+
+//save seat
+let SaveSeat (ticketId: Guid) (row: int) (col: int) =
+    use conn = new MySqlConnection(connectionString)
+    conn.Open()
+
+    let query = "INSERT INTO Seat (Row, Col, TicketID) VALUES (@Row, @Col, @TicketID)"
+    use cmd = new MySqlCommand(query, conn)
+    cmd.Parameters.AddWithValue("@Row", row) |> ignore
+    cmd.Parameters.AddWithValue("@Col", col) |> ignore
+    cmd.Parameters.AddWithValue("@TicketID", ticketId.ToString()) |> ignore
+
+    cmd.ExecuteNonQuery()
  
 // Reserve Seat Function with Validations
  
@@ -104,7 +161,8 @@ let ReserveSeat (row: int) (column: int) (CustomerName: string) (showtime: DateT
         printfn "Error: Invalid seat selection. Row and Column must be between 1 and 10."
         layout
     else
-        let customer = { Id = GenerateUniqueCustomerID(); Name = CustomerName }
+        let customerId = GetOrCreateCustomerId CustomerName
+        let customer = { Id = customerId; Name = CustomerName }
         match layout |> List.tryFind (fun (r, c, status) -> r = row && c = column) with
         | Some (_, _, Available) ->
             let updatedLayout = layout |> List.map (fun (r, c, status) ->
@@ -117,13 +175,13 @@ let ReserveSeat (row: int) (column: int) (CustomerName: string) (showtime: DateT
                 CustomerDetails = customer
                 Showtime = showtime
             }
-             
+            SaveTicket ticket
+            SaveSeat ticketId row column
             let ticketDetails = sprintf "Ticket ID: %O\nCustomer: %s\nSeat: (%d, %d)\nShowtime: %O\n\n"
                                         ticket.TicketID ticket.CustomerDetails.Name ticket.SeatDetails.Row ticket.SeatDetails.Column ticket.Showtime
-            File.AppendAllText("D:\PL3\Ticket.txt", ticketDetails)
+            File.AppendAllText("D:\\PL3\\Ticket.txt", ticketDetails)
             printfn "Seat (%d, %d) reserved for %s with Ticket ID %O" row column customer.Name ticketId
             updateTicketDetails ticketDetails
-             
             updatedLayout
         | Some (_, _, Reserved existingCustomer) ->
             printfn "Error: Seat (%d, %d) is already reserved by %s with ID %O." row column existingCustomer.Name existingCustomer.Id
@@ -131,6 +189,7 @@ let ReserveSeat (row: int) (column: int) (CustomerName: string) (showtime: DateT
         | None ->
             printfn "Error: Seat (%d, %d) does not exist." row column
             layout
+
 
 // Display Seat Layout
 let seatLayout =
@@ -150,12 +209,49 @@ let seatLayout =
         defaultLayout
 
  //cancle reservation
-let cancelReservation (row:int) (column:int) (layout:SeatLayout)=
-     layout
-     |>List.map (fun (r,c,status)->if r=row && c=column then (r,c,Available) else (r,c,status))
-     
-let cancelAndSaveReservation row column layout filePath =
-    let updatedLayout = cancelReservation row column layout
+// Function to cancel the reservation and delete the customer from the database and the file
+let CancelReservationAndDeleteCustomer (row: int) (col: int) (customerName: string) (layout: SeatLayout) (filePath: string) =
+    use conn = new MySqlConnection(connectionString)
+    conn.Open()
+
+    // Delete the ticket associated with the specified seat and customer
+    let deleteTicketQuery = """
+       DELETE Ticket
+            FROM Ticket
+            JOIN Seat ON Ticket.TicketID = Seat.TicketID
+            JOIN Customer ON Ticket.CustomerId = Customer.Id
+            WHERE Seat.Row = @Row AND Seat.Col = @Col AND Customer.Name = @CustomerName
+        """
+    use cmd = new MySqlCommand(deleteTicketQuery, conn)
+    cmd.Parameters.AddWithValue("@Row", row) |> ignore
+    cmd.Parameters.AddWithValue("@Col", col) |> ignore
+    cmd.Parameters.AddWithValue("@CustomerName", customerName) |> ignore
+
+    let ticketRowsAffected = cmd.ExecuteNonQuery()
+
+    // If the ticket was deleted, delete the customer
+    if ticketRowsAffected > 0 then
+        let deleteCustomerQuery = """
+            DELETE FROM Customer
+            WHERE Name = @CustomerName
+        """
+        use deleteCustomerCmd = new MySqlCommand(deleteCustomerQuery, conn)
+        deleteCustomerCmd.Parameters.AddWithValue("@CustomerName", customerName) |> ignore
+
+        let customerRowsAffected = deleteCustomerCmd.ExecuteNonQuery()
+        
+        if customerRowsAffected > 0 then
+            printfn "Customer %s and their reservation have been deleted." customerName
+        else
+            printfn "Customer %s not found." customerName
+    else
+        printfn "No reservation found for seat (%d, %d) by %s." row col customerName
+
+    // Update seat layout in memory (set seat back to Available)
+    let updatedLayout = layout |> List.map (fun (r, c, status) ->
+        if r = row && c = col then (r, c, Available)
+        else (r, c, status))
+
+    // Save updated layout to file
     saveLayoutToFile updatedLayout filePath
     updatedLayout
-
