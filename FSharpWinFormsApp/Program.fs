@@ -1,7 +1,7 @@
 ﻿open System
 open System.Drawing
 open System.Windows.Forms
-
+open Model
 // Create the main form
 let mainForm = new Form(Text = "Cinema Reservation Seat", Width = 900, Height = 600)
 mainForm.BackColor <- Color.FromArgb(255, 255, 225)
@@ -21,7 +21,10 @@ mainForm.Controls.Add(titleLabel)
 let rows = 5
 let columns = 8
 let buttonSize = 50
-
+let layoutFilePath = "D:\PL3\layout.txt"
+let ticketPath="D:\PL3\Ticket.txt"
+// Load the seat layout from file (if available)
+let mutable seatLayout = loadLayoutFromFile layoutFilePath
 // Create a Label and TextBox for Column
 let columnLabel = new Label(Text = "Enter Column", Location = new Point(50, 390))
 let columnInput = new TextBox(Location = new Point(150, 390), Width = 200)
@@ -40,13 +43,21 @@ let seats = Array2D.init rows columns (fun i j ->
     let button = new Button(Text = sprintf "%d,%d" (i + 1) (j + 1), 
                             Size = new Size(buttonSize, buttonSize), 
                             Location = new Point(50 + j * (buttonSize + 5), 50 + i * (buttonSize + 5)))
-    button.BackColor <- Color.FromArgb(255, 215, 0)
-    button.Click.Add(fun _ ->
+    // Set button color based on seat status
+    match seatLayout |> List.tryFind (fun (r, c, _) -> r = i + 1 && c = j + 1) with
+    | Some (_, _, Available) -> button.BackColor <- Color.FromArgb(255, 215, 0)  // Available
+    | Some (_, _, Reserved _) -> button.BackColor <- Color.FromArgb(255, 140, 0)  // Reserved
+    | None -> button.BackColor <- Color.FromArgb(255, 215, 0)  // Default to available
+
+    button.Click.Add(fun _ -> 
+        // Handle seat selection or reservation here
         rowInput.Text <- (i + 1).ToString()
-        columnInput.Text <- (j + 1).ToString()
-    )
+        columnInput.Text <- (j + 1).ToString())
+    
     mainForm.Controls.Add(button)
     button)
+// Optionally save the updated layout (for example, after reserving a seat)
+saveLayoutToFile seatLayout layoutFilePath
 
 // Create a Label and TextBox for Username
 let userNameLabel = new Label(Text = "Enter UserName", Location = new Point(50, 350))
@@ -58,9 +69,8 @@ mainForm.Controls.Add(userNameInput)
 // Create a ComboBox for Show Time
 let showTimeLabel = new Label(Text = "Select Show Time", Location = new Point(50, 470))
 let showTimeComboBox = new ComboBox(Location = new Point(150, 470), Width = 200)
-showTimeComboBox.Items.Add("10:00 AM")
-showTimeComboBox.Items.Add("2:00 PM")
-showTimeComboBox.Items.Add("6:00 PM")
+let showtimes = displayShowtimes ()
+showtimes |> List.iter (fun time -> showTimeComboBox.Items.Add(time)|>ignore)
 showTimeComboBox.SelectedIndex <- 0
 mainForm.Controls.Add(showTimeLabel)
 mainForm.Controls.Add(showTimeComboBox)
@@ -77,11 +87,10 @@ let ticketDetailsLabel = new Label(
     TextAlign = ContentAlignment.MiddleCenter
 )
 mainForm.Controls.Add(ticketDetailsLabel)
-
+ 
 // Function for updating ticket details
-let updateTicketDetails (userName: string) (row: int) (col: int) (showTime: string) =
-    ticketDetailsLabel.Text <- 
-        sprintf "Ticket Reserved for %s\nRow: %d, Column: %d\nShow Time: %s" userName row col showTime
+let updateTicketDetails (ticketDetails: string) =
+    ticketDetailsLabel.Text <- ticketDetails
 
 // Function for "Reserve" button
 let reserveButton_Click (sender: obj) (e: EventArgs) =
@@ -91,13 +100,16 @@ let reserveButton_Click (sender: obj) (e: EventArgs) =
     let showTime = showTimeComboBox.SelectedItem.ToString()
     match row, column with
     | (true, r), (true, c) when r > 0 && r <= rows && c > 0 && c <= columns ->
+        let updatedLayout = ReserveSeat r c userName (DateTime.Parse(showTime)) seatLayout updateTicketDetails
+        saveLayoutToFile updatedLayout layoutFilePath  // Save changes to file
+         
         let seatButton = seats.[r - 1, c - 1]
         if not seatButton.Enabled then
             MessageBox.Show("Seat already reserved!") |> ignore
         else
             seatButton.BackColor <- Color.FromArgb(255, 140, 0)
             seatButton.Enabled <- false
-            updateTicketDetails userName r c showTime
+            
     | _ ->
         MessageBox.Show("Invalid row or column!") |> ignore
 
@@ -117,15 +129,25 @@ clearButton.Click.Add(fun _ ->
     showTimeComboBox.SelectedIndex <- 0
     ticketDetailsLabel.Text <- "Display Ticket Details"
 )
+ 
 
-let bookAnotherSeatButton = new Button(Text = "Book Another Seat", Location = new Point(250, 510))
-bookAnotherSeatButton.BackColor <- Color.FromArgb(255, 165, 0) 
-bookAnotherSeatButton.ForeColor <- Color.White
-bookAnotherSeatButton.Click.Add(fun _ ->
-    MessageBox.Show("You can book another seat now.") |> ignore
+let cancelButton = new Button(Text = "Cancel Reservation", Location = new Point(250, 510))
+cancelButton.BackColor <- Color.FromArgb(255, 165, 0)
+cancelButton.ForeColor <- Color.White
+cancelButton.Click.Add(fun _ ->
+    // Prompt for row and column
+    let row = int (rowInput.Text)
+    let column = int (columnInput.Text) 
+    let username=string(userNameInput.Text)
+    // Update layout and ticket records
+    CancelReservationAndDeleteCustomer row column username seatLayout layoutFilePath
+    
+    // Notify user
+    MessageBox.Show(sprintf "Reservation for seat (%d, %d) has been canceled." row column, "Reservation Canceled", MessageBoxButtons.OK) |> ignore
 )
+ 
 
-let finishBookingButton = new Button(Text = "Finish Booking", Location = new Point(400, 510))
+let finishBookingButton = new Button(Text = "Finish Booking", Location = new Point(350, 510))
 finishBookingButton.BackColor <- Color.FromArgb(255, 165, 0) 
 finishBookingButton.ForeColor <- Color.White
 finishBookingButton.Click.Add(fun _ ->
@@ -135,7 +157,7 @@ finishBookingButton.Click.Add(fun _ ->
 
 mainForm.Controls.Add(reserveButton)
 mainForm.Controls.Add(clearButton)
-mainForm.Controls.Add(bookAnotherSeatButton)
+mainForm.Controls.Add(cancelButton)
 mainForm.Controls.Add(finishBookingButton)
 
 // Run the application
