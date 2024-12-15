@@ -1,0 +1,75 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\pl3ProjectDB\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FFAECFC8-151B-4CA1-B4A0-AA1C7D224FAE}|FSharpWinFormsApp\\FSharpWinFormsApp.fsproj|d:\\pl3projectdb\\fsharpwinformsapp\\model.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
+      "RelativeMoniker": "D:0:0:{FFAECFC8-151B-4CA1-B4A0-AA1C7D224FAE}|FSharpWinFormsApp\\FSharpWinFormsApp.fsproj|solutionrelative:fsharpwinformsapp\\model.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FFAECFC8-151B-4CA1-B4A0-AA1C7D224FAE}|FSharpWinFormsApp\\FSharpWinFormsApp.fsproj|d:\\pl3projectdb\\fsharpwinformsapp\\data.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
+      "RelativeMoniker": "D:0:0:{FFAECFC8-151B-4CA1-B4A0-AA1C7D224FAE}|FSharpWinFormsApp\\FSharpWinFormsApp.fsproj|solutionrelative:fsharpwinformsapp\\data.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FFAECFC8-151B-4CA1-B4A0-AA1C7D224FAE}|FSharpWinFormsApp\\FSharpWinFormsApp.fsproj|d:\\pl3projectdb\\fsharpwinformsapp\\program.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
+      "RelativeMoniker": "D:0:0:{FFAECFC8-151B-4CA1-B4A0-AA1C7D224FAE}|FSharpWinFormsApp\\FSharpWinFormsApp.fsproj|solutionrelative:fsharpwinformsapp\\program.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Data.fs",
+              "DocumentMoniker": "D:\\pl3ProjectDB\\FSharpWinFormsApp\\Data.fs",
+              "RelativeDocumentMoniker": "FSharpWinFormsApp\\Data.fs",
+              "ToolTip": "D:\\pl3ProjectDB\\FSharpWinFormsApp\\Data.fs",
+              "RelativeToolTip": "FSharpWinFormsApp\\Data.fs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-15T21:26:10.911Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.fs",
+              "DocumentMoniker": "D:\\pl3ProjectDB\\FSharpWinFormsApp\\Program.fs",
+              "RelativeDocumentMoniker": "FSharpWinFormsApp\\Program.fs",
+              "ToolTip": "D:\\pl3ProjectDB\\FSharpWinFormsApp\\Program.fs",
+              "RelativeToolTip": "FSharpWinFormsApp\\Program.fs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-15T20:43:13.375Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Model.fs",
+              "DocumentMoniker": "D:\\pl3ProjectDB\\FSharpWinFormsApp\\Model.fs",
+              "RelativeDocumentMoniker": "FSharpWinFormsApp\\Model.fs",
+              "ToolTip": "D:\\pl3ProjectDB\\FSharpWinFormsApp\\Model.fs",
+              "RelativeToolTip": "FSharpWinFormsApp\\Model.fs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-13T20:37:14.324Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

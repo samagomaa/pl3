@@ -24,7 +24,7 @@ let buttonSize = 50
 let layoutFilePath = "D:\PL3\layout.txt"
 let ticketPath="D:\PL3\Ticket.txt"
 // Load the seat layout from file (if available)
-let mutable seatLayout = loadLayoutFromFile layoutFilePath
+let seatLayout = loadLayoutFromFile layoutFilePath
 // Create a Label and TextBox for Column
 let columnLabel = new Label(Text = "Enter Column", Location = new Point(50, 390))
 let columnInput = new TextBox(Location = new Point(150, 390), Width = 200)
@@ -53,7 +53,7 @@ let seats = Array2D.init rows columns (fun i j ->
         // Handle seat selection or reservation here
         rowInput.Text <- (i + 1).ToString()
         columnInput.Text <- (j + 1).ToString())
-    
+        
     mainForm.Controls.Add(button)
     button)
 // Optionally save the updated layout (for example, after reserving a seat)
@@ -134,18 +134,30 @@ clearButton.Click.Add(fun _ ->
 let cancelButton = new Button(Text = "Cancel Reservation", Location = new Point(250, 510))
 cancelButton.BackColor <- Color.FromArgb(255, 165, 0)
 cancelButton.ForeColor <- Color.White
+
 cancelButton.Click.Add(fun _ ->
     // Prompt for row and column
     let row = int (rowInput.Text)
     let column = int (columnInput.Text) 
     let username=string(userNameInput.Text)
-    // Update layout and ticket records
-    CancelReservationAndDeleteCustomer row column username seatLayout layoutFilePath
+    let seatButton = seats.[row - 1, column - 1]
+    seatButton.Text <- sprintf "%d,%d" row column
+     
+
+    let updatedLayout = CancelReservationAndDeleteCustomer row column username seatLayout layoutFilePath
     
-    // Notify user
-    MessageBox.Show(sprintf "Reservation for seat (%d, %d) has been canceled." row column, "Reservation Canceled", MessageBoxButtons.OK) |> ignore
-)
- 
+    // Update seat button only if layout changed
+    match List.tryFind (fun (r, c, status) -> r = row && c = column && status = Available) updatedLayout with
+    | Some _ ->
+        let seatButton = seats.[row - 1, column - 1]
+        seatButton.Text <- sprintf "%d,%d" row column
+        seatButton.BackColor <- Color.FromArgb(255, 215, 0) // Reset to Available color
+         
+        // Notify user
+        MessageBox.Show(sprintf "Reservation for seat (%d, %d) has been canceled." row column, "Reservation Canceled", MessageBoxButtons.OK) |> ignore
+    | None ->
+        MessageBox.Show("No reservation found or invalid user.", "Error", MessageBoxButtons.OK) |> ignore
+ )
 
 let finishBookingButton = new Button(Text = "Finish Booking", Location = new Point(350, 510))
 finishBookingButton.BackColor <- Color.FromArgb(255, 165, 0) 

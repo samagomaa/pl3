@@ -9,7 +9,7 @@ type Customer = {
    Name: string
 }
 
-// Seat Status as enum
+// Seat Status discriminated union
 type SeatStatus =
  | Available 
  | Reserved of Customer 
@@ -29,11 +29,11 @@ type Ticket = {
     Showtime: DateTime
 }
 
-// Generate unique Ticket ID
+// Generate Ticket ID
 let GenerateUniqueTicket() =
     Guid.NewGuid()
 
-// Seat Layout
+// Seat Layout    
 type SeatLayout = (int * int * SeatStatus) list
 
 // Initialize Seat Layout
@@ -49,10 +49,9 @@ let showtimes = [
     DateTime.Now.AddHours(3.0)
 ]
 
-// Function to display available showtimes
 let displayShowtimes () =
     showtimes
-    |> List.map (fun time -> time.ToString())
+    |> List.map (fun time -> time.ToString("hh:mm tt"))
 
 // Save Seat Layout to File
 let saveLayoutToFile (layout: SeatLayout) (filePath: string) =
@@ -89,7 +88,7 @@ let loadLayoutFromFile filePath =
             else
                 failwithf "Malformed line in file: %s" line)
     else
-        []
+        InitializeSeat 5 8
 //save customer in database
 let GetOrCreateCustomerId (customerName: string) =
     use conn = new MySqlConnection(connectionString)
@@ -157,7 +156,7 @@ let SaveSeat (ticketId: Guid) (row: int) (col: int) =
 // Reserve Seat Function with Validations
  
 let ReserveSeat (row: int) (column: int) (CustomerName: string) (showtime: DateTime) (layout: SeatLayout) (updateTicketDetails: string -> unit) =
-    if row < 1 || row > 10 || column < 1 || column > 10 then
+    if row < 1 || row > 6 || column < 1 || column > 9 then
         printfn "Error: Invalid seat selection. Row and Column must be between 1 and 10."
         layout
     else
@@ -175,8 +174,8 @@ let ReserveSeat (row: int) (column: int) (CustomerName: string) (showtime: DateT
                 CustomerDetails = customer
                 Showtime = showtime
             }
-            SaveTicket ticket
-            SaveSeat ticketId row column
+            SaveTicket ticket |>ignore
+            SaveSeat ticketId row column |>ignore
             let ticketDetails = sprintf "Ticket ID: %O\nCustomer: %s\nSeat: (%d, %d)\nShowtime: %O\n\n"
                                         ticket.TicketID ticket.CustomerDetails.Name ticket.SeatDetails.Row ticket.SeatDetails.Column ticket.Showtime
             File.AppendAllText("D:\\PL3\\Ticket.txt", ticketDetails)
@@ -190,23 +189,6 @@ let ReserveSeat (row: int) (column: int) (CustomerName: string) (showtime: DateT
             printfn "Error: Seat (%d, %d) does not exist." row column
             layout
 
-
-// Display Seat Layout
-let seatLayout =
-    try
-        let layout = loadLayoutFromFile "D:\PL3\layout.txt"
-        if layout.IsEmpty then
-            let defaultLayout = InitializeSeat 5 8
-            saveLayoutToFile defaultLayout "D:\PL3\layout.txt"
-            defaultLayout
-        else
-            layout
-    with
-    | ex ->
-        printfn "Error loading layout: %s. Using default layout." ex.Message
-        let defaultLayout = InitializeSeat 5 8
-        saveLayoutToFile defaultLayout "D:\PL3\layout.txt"
-        defaultLayout
 
  //cancle reservation
 // Function to cancel the reservation and delete the customer from the database and the file
@@ -229,7 +211,7 @@ let CancelReservationAndDeleteCustomer (row: int) (col: int) (customerName: stri
 
     let ticketRowsAffected = cmd.ExecuteNonQuery()
 
-    // If the ticket was deleted, delete the customer
+    // If the ticket was deleted, delete the customer and update the seat layout
     if ticketRowsAffected > 0 then
         let deleteCustomerQuery = """
             DELETE FROM Customer
@@ -237,24 +219,27 @@ let CancelReservationAndDeleteCustomer (row: int) (col: int) (customerName: stri
         """
         use deleteCustomerCmd = new MySqlCommand(deleteCustomerQuery, conn)
         deleteCustomerCmd.Parameters.AddWithValue("@CustomerName", customerName) |> ignore
-
+        
         let customerRowsAffected = deleteCustomerCmd.ExecuteNonQuery()
         
         if customerRowsAffected > 0 then
             printfn "Customer %s and their reservation have been deleted." customerName
+
+            // Update seat layout in memory (set seat back to Available)
+            let updatedLayout = layout |> List.map (fun (r, c, status) ->
+                if r = row && c = col then (r, c, Available)
+                else (r, c, status))
+
+            // Save updated layout to file
+            saveLayoutToFile updatedLayout filePath
+            updatedLayout
         else
             printfn "Customer %s not found." customerName
+            layout // Return the original layout
     else
         printfn "No reservation found for seat (%d, %d) by %s." row col customerName
+        layout // Return the original layout
 
-    // Update seat layout in memory (set seat back to Available)
-    let updatedLayout = layout |> List.map (fun (r, c, status) ->
-        if r = row && c = col then (r, c, Available)
-        else (r, c, status))
-
-    // Save updated layout to file
-    saveLayoutToFile updatedLayout filePath
-    updatedLayout
 
  
        
