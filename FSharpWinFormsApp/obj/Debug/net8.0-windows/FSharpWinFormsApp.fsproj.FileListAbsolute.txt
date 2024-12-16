@@ -87,6 +87,24 @@ D:\PL3Project\FSharpWinFormsApp\obj\Debug\net8.0-windows\refint\FSharpWinFormsAp
 D:\PL3Project\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.pdb
 D:\PL3Project\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.genruntimeconfig.cache
 D:\PL3Project\FSharpWinFormsApp\obj\Debug\net8.0-windows\ref\FSharpWinFormsApp.dll
+<<<<<<< HEAD
+D:\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.fsproj.AssemblyReference.cache
+D:\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.AssemblyInfoInputs.cache
+D:\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.AssemblyInfo.fs
+D:\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.fsproj.CoreCompileInputs.cache
+D:\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.sourcelink.json
+D:\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.dll
+D:\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\refint\FSharpWinFormsApp.dll
+D:\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.pdb
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.fsproj.AssemblyReference.cache
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.AssemblyInfoInputs.cache
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.AssemblyInfo.fs
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.fsproj.CoreCompileInputs.cache
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.sourcelink.json
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.dll
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\refint\FSharpWinFormsApp.dll
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.pdb
+=======
 D:\pl3ProjectDB\FSharpWinFormsApp\bin\Debug\net8.0-windows\FSharpWinFormsApp.exe
 D:\pl3ProjectDB\FSharpWinFormsApp\bin\Debug\net8.0-windows\FSharpWinFormsApp.deps.json
 D:\pl3ProjectDB\FSharpWinFormsApp\bin\Debug\net8.0-windows\FSharpWinFormsApp.runtimeconfig.json
@@ -144,3 +162,4 @@ D:\pl3ProjectDB\FSharpWinFormsApp\bin\Debug\net8.0-windows\runtimes\win-x64\nati
 D:\pl3ProjectDB\FSharpWinFormsApp\bin\Debug\net8.0-windows\runtimes\win-x86\native\SQLite.Interop.dll
 D:\pl3ProjectDB\FSharpWinFormsApp\bin\Debug\net8.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\pl3ProjectDB\FSharpWinFormsApp\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+>>>>>>> ede09112c0b57d52903aca9f169c501bcd205b6b
