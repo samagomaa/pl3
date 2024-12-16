@@ -95,3 +95,11 @@ D:\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-w
 D:\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.dll
 D:\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\refint\FSharpWinFormsApp.dll
 D:\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.pdb
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.fsproj.AssemblyReference.cache
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.AssemblyInfoInputs.cache
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.AssemblyInfo.fs
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.fsproj.CoreCompileInputs.cache
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.sourcelink.json
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.dll
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\refint\FSharpWinFormsApp.dll
+D:\PL3fINALLLLLL\PL3WithDB\Cinema_reservation_seat_Fsharp\FSharpWinFormsApp\obj\Debug\net8.0-windows\FSharpWinFormsApp.pdb
