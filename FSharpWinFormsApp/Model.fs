@@ -255,3 +255,12 @@ let CancelReservationAndDeleteCustomer (row: int) (col: int) (customerName: stri
     // Save updated layout to file
     saveLayoutToFile updatedLayout filePath
     updatedLayout
+<<<<<<< HEAD
+=======
+
+ 
+       
+     
+ 
+
+>>>>>>> ede09112c0b57d52903aca9f169c501bcd205b6b
